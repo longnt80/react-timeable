@@ -1,0 +1,32 @@
+{
+  "store-configs": {
+    "business-hours": 30
+  },
+  "tables": [
+    {
+      "name": "One",
+      "capacity": 4,
+      "id": 1
+    },
+    {
+      "name": "Two",
+      "capacity": 4,
+      "id": 2
+    },
+    {
+      "name": "Three",
+      "capacity": 2,
+      "id": 3
+    }
+  ],
+  "reservations": [
+    {
+      "table": [
+        3
+      ],
+      "start": 16,
+      "end": 17,
+      "name": "Long"
+    }
+  ]
+}
