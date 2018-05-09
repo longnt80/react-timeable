@@ -1,6 +1,6 @@
 {
   "store-configs": {
-    "business-hours": 30
+    "business_hours": 30
   },
   "tables": [
     {

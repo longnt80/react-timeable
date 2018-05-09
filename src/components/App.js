@@ -1,48 +1,25 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { injectGlobal } from 'styled-components';
 import 'normalize.css';
-import './App.css';
-import AddRsv from './AddRsv';
 
-class App extends Component {
-  state = {
-    storeConfigs: {},
-    tablesList: [],
-    reservations: [],
+import Timetable from './Timetable';
+
+injectGlobal`
+  html, body, #root {
+    height: 100%;
   }
 
-  getData = () => {
-    const storeConfigs = () => axios.get('http://localhost:3000/store-configs');
-    const tables = () => axios.get('http://localhost:3000/tables');
-    const reservations = () => axios.get('http://localhost:3000/reservations');
-    axios.all([storeConfigs(), tables(), reservations()])
-      .then( response => {
-        const [ storeConfigs, tables, reservations ] = response;
-        this.setState({
-          storeConfigs: {...storeConfigs.data},
-          tablesList: [...tables.data],
-          reservations: [...reservations.data]
-        })
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
   }
+`
 
-  componentDidMount() {
-    this.getData();
-  }
-
-  render() {
-    const { tablesList } = this.state;
-    return (
-      <div className="App">
-        <div className="header">
-          <AddRsv tablesList={tablesList}/>
-        </div>
-      </div>
-    );
-  }
+const App = () => {
+  return (
+    <Timetable/>
+  )
 }
 
 export default App;
