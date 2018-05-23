@@ -1,48 +1,54 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-class Grid extends Component {
-  render() {
-    const { data } = this.props;
-    const businessHours = data.storeConfigs.business_hours;
-    const numberOfTables = data.tablesList.length;
-    const cellHeight = data.measurements.cellHeight;
-    const cellWidth = data.measurements.cellWidth;
+import FakeBorderElem from 'components/commons/FakeBorderElem';
 
-    const Wrapper = styled.div`
+const Grid = (props) => {
+  const { storeConfigs, tablesList, measurements } = props;
 
-    `;
+  const businessHours = storeConfigs.business_hours;
+  const totalColCell = businessHours * 4;
+  const numberOfTables = tablesList.length;
+  const cellHeight = measurements.cellHeight;
+  const cellWidth = measurements.cellWidth;
 
-    const RowCell = styled.div`
-      display: flex;
-    `;
-    const ColCell = styled.div`
-      width: ${cellWidth};
-      height: ${cellHeight};
+  const Row = styled.div`
+    display: flex;
+  `;
+  const ColCell = FakeBorderElem.extend`
+    min-width: ${cellWidth};
+    max-width: ${cellWidth};
+    height: ${cellHeight};
+    position: relative;
 
-      &:nth-child(15) {
-        background-color: blue;
+    &::before {
+      border-bottom: 1px solid #ddd;
+    }
+
+    &:not(:first-child) {
+      &::before {
+        border-left: 1px solid #ddd;
       }
-    `;
+    }
+  `;
 
+  const rows = [];
+  for (let i = 0; i < numberOfTables; i++) {
     const cols = [];
-    const rows = [];
-    for (let i = 0; i < businessHours; i++) {
+    for (let i = 0; i < totalColCell; i++) {
       const colTemplate = <ColCell data-col={i+1} key={i}></ColCell>;
       cols.push(colTemplate);
     }
-    for (let i = 0; i < numberOfTables; i++) {
-      const rowTemplate = <RowCell data-row={i+1} key={i}>{cols}</RowCell>;
-      rows.push(rowTemplate);
-    }
-
-
-    return (
-      <Wrapper>
-        {rows}
-      </Wrapper>
-    );
+    const rowTemplate = <Row data-row={i+1} key={i}>{cols}</Row>;
+    rows.push(rowTemplate);
   }
-}
+
+
+  return (
+    <div ref={props.gridRef}>
+      {rows}
+    </div>
+  );
+};
 
 export default Grid;

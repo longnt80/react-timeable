@@ -4,29 +4,48 @@
   },
   "tables": [
     {
+      "id": 1,
       "name": "One",
       "capacity": 4,
-      "id": 1
+      "order": 1
     },
     {
+      "id": 2,
       "name": "Two",
       "capacity": 4,
-      "id": 2
+      "order": 3
     },
     {
+      "id": 3,
       "name": "Three",
       "capacity": 2,
-      "id": 3
+      "order": 2
     }
   ],
   "reservations": [
     {
-      "table": [
-        3
+      "tableIds": [
+        2
       ],
       "start": 16,
       "end": 17,
       "name": "Long"
+    },
+    {
+      "tableIds": [
+        3
+      ],
+      "start": 13,
+      "end": 14,
+      "name": "Khoa"
+    },
+    {
+      "tableIds": [
+        2, 1
+      ],
+      "start": 10,
+      "end": 12,
+      "name": "Khang"
     }
   ]
 }
