@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { getMinutes, getHours } from 'date-fns';
 
 import TimetableWrapper from './TimetableWrapper';
 import TimetableHeader from './TimetableHeader';
@@ -32,28 +31,18 @@ class Timetable extends Component {
       tablesList: [],
       reservations: [],
       gridScrollX: 0,
-      offsetMinuteInPixel: 0
     }
   }
 
   componentDidMount() {
     console.log(this.gridLayer.offsetWidth);
     this.getData();
-    this.getOffsetPixel();
-    this.timerID = setInterval(
-      () => this.getOffsetPixel(),
-      1000
-    );
   }
 
   componentDidUpdate() {
     const oneRemToPixel = 10;
     const offsetMinute = 80;
     this.bodyRight.scrollLeft = this.state.offsetMinuteInPixel * oneRemToPixel - offsetMinute; // TODO: need to re-write this part
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timerID);
   }
 
   getData = () => {
@@ -72,19 +61,6 @@ class Timetable extends Component {
       .catch(function (error) {
         console.log(error);
       });
-  }
-
-  getOffsetPixel = () => {
-    const { cellWidth } = this.state.measurements;
-    const lengthInOneMinute = parseInt(cellWidth, 10) / 15;
-    const currentMinute = getMinutes(new Date());
-    const currentHour = getHours(new Date());
-    const totalMinutesOfToday = currentHour * 60 + currentMinute;
-    const offSetPx = lengthInOneMinute * totalMinutesOfToday;
-
-    this.setState({
-      offsetMinuteInPixel: offSetPx
-    });
   }
 
   handleGridSCroll = (e) => {
@@ -109,7 +85,7 @@ class Timetable extends Component {
           </TimetableBodyLeft>
           <TimetableBodyRight data-name="body-right" innerRef={ c => {this.bodyRight = c}} onScroll={this.handleGridSCroll}>
             <Grid gridRef={ el => this.gridLayer = el} data-name="grid" {...this.state}/>
-            <CurrentTime offsetMinuteInPixel={this.state.offsetMinuteInPixel}/>
+            <CurrentTime measurements={this.state.measurements}/>
             {/* <Reservations {...this.state}/> */}
           </TimetableBodyRight>
         </TimetableBody>
