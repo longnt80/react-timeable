@@ -12,9 +12,9 @@ import TimetableBodyRight from './TimetableBodyRight';
 import Timeframe from 'components/TimetableTimeframe';
 import TableList from 'components/TimetableTableList';
 import Grid from 'components/TimetableGrid';
-import CurrentTime from 'components/Timetable-CurrentTime';
 
-// import Reservations from 'components/Reservations';
+import CurrentTime from 'containers/Timetable-CurrentTime';
+import Reservations from 'containers/Reservations';
 
 const TimetableMeasurements = {
   leftSideWidth: "20rem",
@@ -35,14 +35,12 @@ class Timetable extends Component {
   }
 
   componentDidMount() {
-    console.log(this.gridLayer.offsetWidth);
     this.getData();
   }
 
   componentDidUpdate() {
-    const oneRemToPixel = 10;
-    const offsetMinute = 80;
-    this.bodyRight.scrollLeft = this.state.offsetMinuteInPixel * oneRemToPixel - offsetMinute; // TODO: need to re-write this part
+    // const pixelInOneRem = 10;
+    // const offsetMinute = 80;
   }
 
   getData = () => {
@@ -86,7 +84,7 @@ class Timetable extends Component {
           <TimetableBodyRight data-name="body-right" innerRef={ c => {this.bodyRight = c}} onScroll={this.handleGridSCroll}>
             <Grid gridRef={ el => this.gridLayer = el} data-name="grid" {...this.state}/>
             <CurrentTime measurements={this.state.measurements}/>
-            {/* <Reservations {...this.state}/> */}
+            <Reservations {...this.state}/>
           </TimetableBodyRight>
         </TimetableBody>
       </TimetableWrapper>

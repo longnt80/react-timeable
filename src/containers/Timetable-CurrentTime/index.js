@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { getMinutes, getHours } from 'date-fns';
+
+import { getCurrentMinuteInPixel } from 'utils';
 
 class TimetableCurrentTime extends Component {
 
@@ -25,14 +26,9 @@ class TimetableCurrentTime extends Component {
 
   getOffsetPixel = () => {
     const { cellWidth } = this.props.measurements;
-    const lengthInOneMinute = parseInt(cellWidth, 10) / 15;
-    const currentMinute = getMinutes(new Date());
-    const currentHour = getHours(new Date());
-    const totalMinutesOfToday = currentHour * 60 + currentMinute;
-    const offSetPx = lengthInOneMinute * totalMinutesOfToday;
 
     this.setState({
-      offsetMinuteInPixel: offSetPx
+      offsetMinuteInPixel: getCurrentMinuteInPixel(cellWidth)
     });
   }
 

@@ -29,7 +29,8 @@
       ],
       "start": 16,
       "end": 17,
-      "name": "Long"
+      "name": "Long",
+      "id": 1
     },
     {
       "tableIds": [
@@ -37,7 +38,8 @@
       ],
       "start": 13,
       "end": 14,
-      "name": "Khoa"
+      "name": "Khoa",
+      "id": 2
     },
     {
       "tableIds": [
@@ -45,7 +47,8 @@
       ],
       "start": 10,
       "end": 12,
-      "name": "Khang"
+      "name": "Khang",
+      "id": 3
     }
   ]
 }
