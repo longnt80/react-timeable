@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-
-import { findCurrentMinuteInPixel } from 'utils';
+import { convertMinuteToRem, getCurrentMinute } from 'utils';
 
 class TimetableCurrentTime extends Component {
 
@@ -28,7 +27,7 @@ class TimetableCurrentTime extends Component {
     const { cellWidth } = this.props.measurements;
 
     this.setState({
-      offsetMinuteInPixel: findCurrentMinuteInPixel(cellWidth)
+      offsetMinuteInPixel: convertMinuteToRem(getCurrentMinute(), cellWidth)
     });
   }
 
