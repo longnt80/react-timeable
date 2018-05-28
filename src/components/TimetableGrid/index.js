@@ -43,8 +43,8 @@ const Grid = (props) => {
     rows.push(rowTemplate);
   }
 
-
   return (
+
     <div ref={props.gridRef}>
       {rows}
     </div>

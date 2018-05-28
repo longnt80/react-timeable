@@ -7,7 +7,8 @@ import TimetableBody from './TimetableBody';
 import TimetableHeaderLeft from './TimetableHeaderLeft';
 import TimetableHeaderRight from './TimetableHeaderRight';
 import TimetableBodyLeft from './TimetableBodyLeft';
-import TimetableBodyRight from './TimetableBodyRight';
+// import TimetableBodyRight from './TimetableBodyRight';
+import './TimetableBodyRight.css';
 
 import Timeframe from 'components/TimetableTimeframe';
 import TableList from 'components/TimetableTableList';
@@ -32,15 +33,13 @@ class Timetable extends Component {
       reservations: [],
       gridScrollX: 0,
     }
+    this.bodyRight = React.createRef();
   }
 
   componentDidMount() {
     this.getData();
-  }
-
-  componentDidUpdate() {
-    // const pixelInOneRem = 10;
-    // const offsetMinute = 80;
+    console.log(this.bodyRight.current);
+    this.bodyRight.current.scrollLeft = 1000;
   }
 
   getData = () => {
@@ -48,7 +47,7 @@ class Timetable extends Component {
     const tables = () => axios.get('http://localhost:3000/tables');
     const reservations = () => axios.get('http://localhost:3000/reservations');
     axios.all([storeConfigs(), tables(), reservations()])
-      .then( response => {
+    .then( response => {
         const [ storeConfigs, tables, reservations ] = response;
         this.setState({
           storeConfigs: {...storeConfigs.data},
@@ -59,17 +58,26 @@ class Timetable extends Component {
       .catch(function (error) {
         console.log(error);
       });
-  }
+    }
 
-  handleGridSCroll = (e) => {
-    const scrollLeft = e.target.scrollLeft;
-    const headerRight = this.headerRight;
+    handleGridSCroll = (e) => {
+      const scrollLeft = e.target.scrollLeft;
+      const headerRight = this.headerRight;
+      console.log(headerRight);
 
-    headerRight.scrollLeft = scrollLeft;
-  }
+      headerRight.scrollLeft = scrollLeft;
+    }
 
-  render() {
-    return (
+    render() {
+
+      const bodyRightStyles = {
+        overflow: "scroll",
+        backgroundColor: "#aaa",
+        flex: 1,
+        position: "relative",
+      }
+
+      return (
       <TimetableWrapper>
         <TimetableHeader>
           <TimetableHeaderLeft customWidth={TimetableMeasurements.leftSideWidth} />
@@ -81,11 +89,13 @@ class Timetable extends Component {
           <TimetableBodyLeft customWidth={TimetableMeasurements.leftSideWidth}>
             <TableList tablesList={this.state.tablesList} measurements={this.state.measurements}/>
           </TimetableBodyLeft>
-          <TimetableBodyRight data-name="body-right" innerRef={ c => {this.bodyRight = c}} onScroll={this.handleGridSCroll}>
+          {/* <TimetableBodyRight data-name="body-right" innerRef={ c => {this.bodyRight = c}} onScroll={this.handleGridSCroll}> */}
+          <div style={bodyRightStyles} data-name="body-right" ref={this.bodyRight} onScroll={this.handleGridSCroll}>
             <Grid gridRef={ el => this.gridLayer = el} data-name="grid" {...this.state}/>
             <CurrentTime measurements={this.state.measurements}/>
             <Reservations {...this.state}/>
-          </TimetableBodyRight>
+          </div>
+          {/* </TimetableBodyRight> */}
         </TimetableBody>
       </TimetableWrapper>
     );

@@ -1,6 +1,6 @@
 import { getMinutes, getHours } from 'date-fns';
 
-export const getCurrentMinuteInPixel = (cellWidth, minutesInOneCell = 15) => {
+export const findCurrentMinuteInPixel = (cellWidth, minutesInOneCell = 15) => {
   const currentMinute = getMinutes(new Date());
   const currentHour = getHours(new Date());
   const lengthInOneMinute = parseInt(cellWidth, 10) / minutesInOneCell;
