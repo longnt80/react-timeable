@@ -10,7 +10,7 @@ const TimetableTableList = (props) => {
   const Wrapper = styled.div``;
 
   const TableDiv = FakeBorderElem.extend`
-    height: ${measurements.cellHeight};
+    height: ${measurements.timetableCellHeight};
     background-color: teal;
     color: #fff;
 

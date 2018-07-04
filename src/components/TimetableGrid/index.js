@@ -9,16 +9,16 @@ const Grid = (props) => {
   const businessHours = storeConfigs.business_hours;
   const totalColCell = businessHours * 4;
   const numberOfTables = tablesList.length;
-  const cellHeight = measurements.cellHeight;
-  const cellWidth = measurements.cellWidth;
+  const timetableCellHeight = measurements.timetableCellHeight;
+  const timetableCellWidth = measurements.timetableCellWidth;
 
   const Row = styled.div`
     display: flex;
   `;
   const ColCell = FakeBorderElem.extend`
-    min-width: ${cellWidth};
-    max-width: ${cellWidth};
-    height: ${cellHeight};
+    min-width: ${timetableCellWidth};
+    max-width: ${timetableCellWidth};
+    height: ${timetableCellHeight};
     position: relative;
 
     &::before {

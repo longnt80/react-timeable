@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+
+import RsvItem from 'containers/RsvItem';
 
 class Reservations extends Component {
 
   render() {
-
-    const RsvItem = styled.div`
-      position: absolute;
-      top: 0;
-      left: 0;
-    `;
-
+    const { measurements, tablesList } = this.props;
     const Items = this.props.reservations.map( item => {
       return (
-        <RsvItem key={item.id}>{item.name}</RsvItem>
+        <RsvItem
+          key={item.id} {...item}
+          tablesList={tablesList}
+          measurements={measurements}
+        />
       )
     });
 
