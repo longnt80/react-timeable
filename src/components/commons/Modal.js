@@ -14,10 +14,18 @@ class Modal extends Component {
 
   componentDidMount() {
     document.body.appendChild(this.el);
+    document.body.addEventListener('click', this._handleClickOnDocument);
   }
 
   componentWillUnmount() {
     document.body.removeChild(this.el);
+  }
+
+  _handleClickOnDocument = (e) => {
+    const target = e.target;
+    if (!this.el.contains(target)) {
+      this.props.closeModal();
+    }
   }
 
   renderDefaultElements = () => {
